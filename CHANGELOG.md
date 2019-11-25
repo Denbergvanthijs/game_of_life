@@ -1,6 +1,12 @@
 # ChangeLog voor Game of Life
 
-## Stap 1 af
+## Stap 2
+
+### 2019.11.25.3
+
+- Test geschreven voor `get_rules` in `test_simulator.py`
+
+## Stap 1
 
 ### 2019.11.25.2
 
@@ -10,5 +16,5 @@
 
 ### 2019.11.25.1
 
-- Test geschreven voor fill_world in `test_world.py`
+- Test geschreven voor `fill_world` in `test_world.py`
 - Wereld verkleint naar 10x4 voor sneller debuggen

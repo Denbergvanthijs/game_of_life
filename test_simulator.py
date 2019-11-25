@@ -45,3 +45,10 @@ class TestSimulator(TestCase):
         self.sim.set_world(world)
         self.assertIsInstance(self.sim.get_world(), World)
         self.assertIs(self.sim.get_world(), world)
+
+    def test_get_rules(self):
+        """
+        Test of een string correct wordt omgezet naar een regelset.
+        """
+        input = "B358/S237"
+        self.assertEqual(self.get_rules(input), ([3, 5, 8], [2, 3, 7]))
