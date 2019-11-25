@@ -1,4 +1,5 @@
 from unittest import TestCase
+
 from World import *
 
 
@@ -43,3 +44,16 @@ class TestWorld(TestCase):
         neighbours = self.world.get_neighbours(x, y)
         self.assertEqual(8, len(neighbours))
         self.assertIn(value, neighbours)
+
+    def test_fill_world(self):
+        """
+        Test of een wereld gevuld met n cells ook n cells bevat.
+        Kans op levende cell wordt op 100% gezet, iedere cell zou dus levend moeten zijn.
+        `self.height * self.width` staat gelijk aan het aantal cells.
+        """
+        self.world.fill_world(p=[0.0, 1.0])
+        self.assertEqual(np.sum(self.world.world), self.height * self.width)
+
+        # Geen levende cells
+        self.world.fill_world(p=[1.0, 0.0])
+        self.assertEqual(np.sum(self.world.world), 0)

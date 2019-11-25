@@ -1,12 +1,13 @@
-from Visualisation import *
-from Simulator import *
 import time
 
+from Simulator import *
+from Visualisation import *
+
 # Configuratie
-VISUALISATION=True
+VISUALISATION=False
 
 if __name__ == "__main__":
-    w = World(110)
+    w = World(10, 4)
     sim = Simulator(w)
 
     if VISUALISATION:

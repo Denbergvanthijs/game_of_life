@@ -67,3 +67,4 @@ class World:
                 print(column, end=" | ")
             print()
             print('-'*self.width*4)
+        # return ""
