@@ -2,6 +2,10 @@
 
 ## Stap 2
 
+### 2019.11.25.5
+
+- Unittest slaagde niet door het niet meegeven van een argument
+
 ### 2019.11.25.4
 
 - `Update` in `Simulator.py` aangepast zodat `get_rules` wordt gebruikt
