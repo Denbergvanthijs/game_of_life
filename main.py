@@ -4,10 +4,10 @@ from Simulator import *
 from Visualisation import *
 
 # Configuratie
-VISUALISATION=False
+VISUALISATION=True
 
 if __name__ == "__main__":
-    w = World(10, 4)
+    w = World(100)
     sim = Simulator(w)
 
     if VISUALISATION:

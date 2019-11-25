@@ -1,4 +1,5 @@
 from World import *
+import copy
 
 class Simulator:
     """
@@ -26,8 +27,20 @@ class Simulator:
         """
         self.generation += 1
 
-        #TODO: Do something to evolve the generation
+        world_new = copy.deepcopy(self.world)
 
+        for i, row in enumerate(self.world.world):
+            for j, column in enumerate(row):
+                neigh = np.sum(self.world.get_neighbours(i, j))
+                
+                if column:  # If levend
+                    if (neigh < 2) or (neigh > 3):
+                        world_new.world[i][j] = 0
+                else:  # If dood
+                    if neigh == 3:
+                        world_new.world[i][j] = 1
+        
+        self.set_world(world_new)
         return self.world
 
     def get_generation(self):

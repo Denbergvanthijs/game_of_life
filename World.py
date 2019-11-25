@@ -6,7 +6,7 @@ class World:
     Data structure for representing Game of Life worlds.
     """
 
-    def __init__(self, width: int, height: int = -1):
+    def __init__(self, width: int, height: int = -1, p: list = [0.5, 0.5]):
         """
         Constructor of World datatype.
 
@@ -18,7 +18,8 @@ class World:
             self.height = height
         else:
             self.height = width
-        self.world = np.zeros((self.height, self.width), dtype=int)
+        
+        self.fill_world(p=p)
 
     def get(self, x: int, y: int) -> int:
         """
@@ -59,6 +60,13 @@ class World:
                     neighbour_values.append(self.world[ny%self.height][nx%self.width])
         return neighbour_values
 
+    def fill_world(self, p=[0.5, 0.5]):
+        """
+        Vult de wereld met dode of levende cellen. Standaard is de kans resp. 50/50.
+        """
+        self.world = np.random.choice([0, 1], self.height * self.width, p=p).reshape(self.height, self.width)
+
+
     def __str__(self):
         print('-'*self.width*4)
         for row in self.world:
@@ -67,4 +75,4 @@ class World:
                 print(column, end=" | ")
             print()
             print('-'*self.width*4)
-        # return ""
+        return ""
