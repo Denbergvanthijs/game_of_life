@@ -7,8 +7,8 @@ from Visualisation import *
 VISUALISATION=True
 
 if __name__ == "__main__":
-    w = World(100)
-    sim = Simulator(w)
+    w = World(100, p=[0.5, 0.5])
+    sim = Simulator("B358/S237", world=w)
 
     if VISUALISATION:
         vis = Visualisation(sim)

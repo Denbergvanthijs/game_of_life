@@ -51,4 +51,4 @@ class TestSimulator(TestCase):
         Test of een string correct wordt omgezet naar een regelset.
         """
         input = "B358/S237"
-        self.assertEqual(self.get_rules(input), ([3, 5, 8], [2, 3, 7]))
+        self.assertEqual(self.sim.get_rules(input), ([3, 5, 8], [2, 3, 7]))

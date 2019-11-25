@@ -2,6 +2,13 @@
 
 ## Stap 2
 
+### 2019.11.25.4
+
+- `Update` in `Simulator.py` aangepast zodat `get_rules` wordt gebruikt
+- `get_rules` uitgeschreven in `Simulator.py`
+- Gebruiker kan nu een string met de ruleset invullen in `main.py`
+- `test_get_rules` bug verwijderd
+
 ### 2019.11.25.3
 
 - Test geschreven voor `get_rules` in `test_simulator.py`

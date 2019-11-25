@@ -7,13 +7,15 @@ class Simulator:
     Read https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life for an introduction to Conway's Game of Life.
     """
 
-    def __init__(self, world = None):
+    def __init__(self, rule_str, world = None):
         """
         Constructor for Game of Life simulator.
 
         :param world: (optional) environment used to simulate Game of Life.
         """
+        self.rule_str = rule_str
         self.generation = 0
+
         if world == None:
             self.world = World(20)
         else:
@@ -28,17 +30,19 @@ class Simulator:
         self.generation += 1
 
         world_new = copy.deepcopy(self.world)
+        birth, surv = self.get_rules(self.rule_str)
 
         for i, row in enumerate(self.world.world):
-            for j, column in enumerate(row):
+            for j, _ in enumerate(row):
                 neigh = np.sum(self.world.get_neighbours(i, j))
                 
-                if column:  # If levend
-                    if (neigh < 2) or (neigh > 3):
-                        world_new.world[i][j] = 0
+                if world_new.get(j, i):  # If levend
+                    if not (neigh == any(surv)):  # If niet overleven
+                        world_new.set(j, i, value=0)
                 else:  # If dood
-                    if neigh == 3:
-                        world_new.world[i][j] = 1
+                    if neigh == any(birth):  # If n neigbours in surv
+                        world_new.set(j, i, value=1)
+
         
         self.set_world(world_new)
         return self.world
@@ -67,3 +71,14 @@ class Simulator:
 
         """
         self.world = world
+
+    def get_rules(self, rule):
+        """
+        Zet een string om naar twee lijsten met het aantal mogelijke buren voor resp. de birth en de survival
+        """
+        birth, surv = rule.split("/")
+        
+        birth = [int(x) for x in birth if x.isdigit()]
+        surv = [int(x) for x in surv if x.isdigit()]
+
+        return birth, surv
