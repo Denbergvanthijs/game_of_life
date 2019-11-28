@@ -31,9 +31,9 @@ class Simulator:
 
         world_new = copy.deepcopy(self.world)
 
-        for i, row in enumerate(self.world.world):
-            for j, _ in enumerate(row):
-                world_new.set(j, i, value=self.update_cell(i, j))
+        for y, row in enumerate(self.world.world):
+            for x, _ in enumerate(row):
+                world_new.set(x, y, value=self.update_cell(x, y))
         
         self.set_world(world_new)
         return self.world

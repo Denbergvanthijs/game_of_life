@@ -21,6 +21,7 @@ In onderstaande ChangeLog zijn de gemaakte wijzigingen beschreven. De commits zi
 #### 2019.11.28.3
 
 - ChangeLog verplaatst naar `README.md`
+- Bugfix in `Simulator.py`
 
 #### 2019.11.28.2
 
