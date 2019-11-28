@@ -52,3 +52,53 @@ class TestSimulator(TestCase):
         """
         input = "B358/S237"
         self.assertEqual(self.sim.get_rules(input), ([3, 5, 8], [2, 3, 7]))
+
+    def test_update_cell(self):
+        """
+        Test of een cell correct wordt geupdatet.
+        Rules: "B358/S237"
+        """
+        world = World(3, 3)
+        self.sim.set_world(world)
+
+
+        ### VOLLEDIGE WORLD
+        self.sim.world.fill_world(p=[0, 1])  # Vult de wereld volledig, cell zelf leeft ook
+        cell = self.sim.update_cell(1, 1)
+        self.assertEqual(0, cell)  # Test of cell dood gaat aangezien alles leeft
+
+        self.sim.world.fill_world(p=[1, 0]); self.sim.world.set(1,1)  # Leegt de wereld volledig, cell zelf leeft
+        cell = self.sim.update_cell(1, 1)
+        self.assertEqual(0, cell)  # Test of cell dood gaat aangezien geen neighbour leeft
+
+
+        ### BIRTH TESTS
+        self.sim.world.fill_world(p=[1, 0])  # Leegt de wereld volledig
+        self.sim.world.set(0,0); self.sim.world.set(0,1); self.sim.world.set(0,2)
+        cell = self.sim.update_cell(1, 1)
+        self.assertEqual(1, cell)  # Test of de cell tot leven is gekomen bij drie neighbours
+
+        self.sim.world.set(1,0)  # Vierde neighbour
+        cell = self.sim.update_cell(1, 1)
+        self.assertEqual(1, cell)  # Test of de cell tot leven is gekomen bij vier neighbours
+
+        self.sim.world.fill_world(p=[0, 1])  # Vult de wereld volledig
+        self.sim.world.set(1, 1, value=0)  # Alle neighbours leven, cell zelf niet
+        cell = self.sim.update_cell(1, 1)
+        self.assertEqual(1, cell)  # Test of de cell tot leven is gekomen bij acht neigbours
+
+
+        ### SURVIVAL TESTS
+        self.sim.world.fill_world(p=[1, 0])  # Leegt de wereld volledig
+        self.sim.world.set(0, 0); self.sim.world.set(0, 1); self.sim.world.set(1, 1)  # Twee neighbours en de cell zelf leven
+        cell = self.sim.update_cell(1, 1)
+        self.assertEqual(1, cell)  # Test of de cell overleeft bij twee neigbours
+
+        self.sim.world.set(0, 2)  # Derde neighbour
+        cell = self.sim.update_cell(1, 1)
+        self.assertEqual(1, cell)  # Test of de cell overleeft bij drie neigbours
+
+        self.sim.world.fill_world(p=[0, 1])  # Vult de wereld volledig
+        self.sim.world.set(0, 0, value=0); self.sim.world.set(1, 1, value=0)  # Zeven neighbours leven, cell zelf niet
+        cell = self.sim.update_cell(1, 1)
+        self.assertEqual(1, cell)  # Test of de cell overleeft bij zeven neigbours
