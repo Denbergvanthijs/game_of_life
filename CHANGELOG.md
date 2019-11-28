@@ -2,9 +2,14 @@
 
 ## Stap 2
 
+### 2019.11.28.2
+
+- Functie `update_cell` geïmplementeerd
+- Bugfix in `test_simulator.py`
+
 ### 2019.11.28.1
 
-- Tot de realisatie gekomen dat de functie `update` kan worden gesplitst in functies om te testen.
+- Tot de realisatie gekomen dat de functie `update` kan worden gesplitst in functies om te testen
 - Vervolgens tests geschreven voor de toekomstige functie `update_cell` in `test_simulator.py`
 
 ### 2019.11.25.5

@@ -30,19 +30,10 @@ class Simulator:
         self.generation += 1
 
         world_new = copy.deepcopy(self.world)
-        birth, surv = self.get_rules(self.rule_str)
 
         for i, row in enumerate(self.world.world):
             for j, _ in enumerate(row):
-                neigh = np.sum(self.world.get_neighbours(i, j))
-                
-                if world_new.get(j, i):  # If levend
-                    if not (neigh == any(surv)):  # If niet overleven
-                        world_new.set(j, i, value=0)
-                else:  # If dood
-                    if neigh == any(birth):  # If n neigbours in surv
-                        world_new.set(j, i, value=1)
-
+                world_new.set(j, i, value=self.update_cell(i, j))
         
         self.set_world(world_new)
         return self.world
@@ -82,3 +73,15 @@ class Simulator:
         surv = [int(x) for x in surv if x.isdigit()]
 
         return birth, surv
+
+    def update_cell(self, x, y):
+        neigh = np.sum(self.world.get_neighbours(x, y))
+        birth, surv = self.get_rules(self.rule_str)
+
+        if self.world.get(y, x):  # If levend
+            if neigh in surv:  # If overleven
+                return 1
+        else:  # If dood
+            if neigh in birth:  # If n neigbours in surv
+                return 1
+        return 0

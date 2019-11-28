@@ -80,7 +80,11 @@ class TestSimulator(TestCase):
 
         self.sim.world.set(1,0)  # Vierde neighbour
         cell = self.sim.update_cell(1, 1)
-        self.assertEqual(1, cell)  # Test of de cell tot leven is gekomen bij vier neighbours
+        self.assertEqual(0, cell)  # Test of de cell dood blijft bij vier neighbours
+
+        self.sim.world.set(1, 2)  # Vijfde neighbour
+        cell = self.sim.update_cell(1, 1)
+        self.assertEqual(1, cell)  # Test of de cell tot leven is gekomen bij vijf neighbours
 
         self.sim.world.fill_world(p=[0, 1])  # Vult de wereld volledig
         self.sim.world.set(1, 1, value=0)  # Alle neighbours leven, cell zelf niet
@@ -99,6 +103,6 @@ class TestSimulator(TestCase):
         self.assertEqual(1, cell)  # Test of de cell overleeft bij drie neigbours
 
         self.sim.world.fill_world(p=[0, 1])  # Vult de wereld volledig
-        self.sim.world.set(0, 0, value=0); self.sim.world.set(1, 1, value=0)  # Zeven neighbours leven, cell zelf niet
+        self.sim.world.set(0, 0, value=0)  # Zeven neighbours leven, cell zelf ook
         cell = self.sim.update_cell(1, 1)
         self.assertEqual(1, cell)  # Test of de cell overleeft bij zeven neigbours
