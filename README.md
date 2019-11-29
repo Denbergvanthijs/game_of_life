@@ -18,6 +18,12 @@ In onderstaande ChangeLog zijn de gemaakte wijzigingen beschreven. De commits zi
 
 ### Stap 3
 
+#### 2019.11.29.2
+
+- `get_rules` en `update_cell` in `Simulator.py` herschreven zodat tests werken
+- Kleine verbeteringen in `World.py` zodat rekening wordt gehouden met de startleeftijd
+- Bugfixes in tests voor simulator en world
+
 #### 2019.11.29.1
 
 - Extra tests geschreven voor de age in `test_update_cell` en `test_get_rules`

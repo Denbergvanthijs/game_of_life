@@ -52,8 +52,8 @@ class TestWorld(TestCase):
         `self.height * self.width` staat gelijk aan het aantal cells.
         """
         self.world.fill_world(p=[0.0, 1.0])
-        self.assertEqual(np.sum(self.world.world), self.height * self.width)
+        self.assertEqual(np.count_nonzero(self.world.world), self.height * self.width)
 
         # Geen levende cells
         self.world.fill_world(p=[1.0, 0.0])
-        self.assertEqual(np.sum(self.world.world), 0)
+        self.assertEqual(np.count_nonzero(self.world.world), 0)
