@@ -52,6 +52,13 @@ class TestSimulator(TestCase):
         """
         input = "B358/S237"
         self.assertEqual(self.sim.get_rules(input), ([3, 5, 8], [2, 3, 7]))
+        input = "B3/S2"
+        self.assertEqual(self.sim.get_rules(input), ([3], [2]))
+        input = "3/2"
+        self.assertEqual(self.sim.get_rules(input), ([3], [2]))
+
+        input = "B3/S23/A5"
+        self.assertEqual(self.sim.get_rules(input), ([3], [2, 3], [5]))
 
     def test_update_cell(self):
         """
@@ -106,3 +113,41 @@ class TestSimulator(TestCase):
         self.sim.world.set(0, 0, value=0)  # Zeven neighbours leven, cell zelf ook
         cell = self.sim.update_cell(1, 1)
         self.assertEqual(1, cell)  # Test of de cell overleeft bij zeven neigbours
+
+        ### AGE TESTS VERLAGEN
+        self.sim = Simulator("B3/S23/A6")
+        self.sim.world.fill_world(p=[0, 1], startAge=5)  # Vult de wereld volledig, cell zelf leeft ook
+        
+        cell = self.sim.update_cell(1, 1)
+        self.assertEqual(4, cell)  # Test of cell age vier in plaats van standaard vijf heeft.
+
+        cell = self.sim.update_cell(1, 1)
+        self.assertEqual(3, cell)  # Test of cell age drie heeft
+
+        cell = self.sim.update_cell(1, 1)
+        self.assertEqual(2, cell)  # Test of cell age twee heeft
+
+        cell = self.sim.update_cell(1, 1)
+        self.assertEqual(1, cell)  # Test of cell age een heeft
+
+        cell = self.sim.update_cell(1, 1)
+        self.assertEqual(0, cell)  # Test of cell age nul heeft en dus dood is
+
+        cell = self.sim.update_cell(1, 1)
+        self.assertEqual(0, cell)  # Test of de cell niet meer tot leven komt
+
+        ### AGE TESTS VERHOGEN
+        self.sim.world.fill_world(p=[1, 0], startAge=5)  # Leegt de wereld volledig
+        self.sim.world.set(0, 0, value=1); self.sim.world.set(0, 1, value=1); self.sim.world.set(0, 2, value=1)
+        
+        cell = self.sim.update_cell(1, 1)
+        self.assertEqual(0, cell)  # Test of cell niet tot leven komt aangezien alleen cellen tussen 2 en 4 vruchtbaar zijn
+
+        self.sim.world.set(0, 0, value=2); self.sim.world.set(0, 1, value=2); self.sim.world.set(0, 2, value=2)
+        cell = self.sim.update_cell(1, 1)
+        self.assertEqual(5, cell)  # Test of cell wel tot leven komt, aangezien alleen cellen tussen 2 en 4 vruchtbaar zijn
+
+        self.sim.world.set(0, 0, value=5); self.sim.world.set(0, 1, value=5); self.sim.world.set(0, 2, value=5)
+        cell = self.sim.update_cell(1, 1)
+        self.assertEqual(5, cell)  # Test of cell weer dood gaat, aangezien alleen cellen tussen 2 en 4 vruchtbaar zijn
+

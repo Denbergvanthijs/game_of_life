@@ -16,6 +16,12 @@ In onderstaande ChangeLog zijn de gemaakte wijzigingen beschreven. De commits zi
 
 ***
 
+### Stap 3
+
+#### 2019.11.29.1
+
+- Extra tests geschreven voor de age in `test_update_cell` en `test_get_rules`
+
 ### Stap 2
 
 #### 2019.11.28.3
